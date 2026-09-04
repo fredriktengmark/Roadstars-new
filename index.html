@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roadstars Anderstorp | Klassiska Jänkare & Nostalgi</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Montserrat:wght@400;700;900&family=Shrikhand&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --neon-red: #ff1e42;
+      --neon-glow-red: rgba(255, 30, 66, 0.7);
+      --neon-blue: #00f0ff;
+      --neon-glow-blue: rgba(0, 240, 255, 0.7);
+      --cream: #fff8e7;
+      --diner-dark: #121214;
+      --chrome-gradient: linear-gradient(180deg, #f0f0f0 0%, #b8b8b8 45%, #7a7a7a 50%, #dfdfdf 55%, #ffffff 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--diner-dark);
+      color: var(--cream);
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Schackrutig kant */
+    .checker-strip {
+      height: 24px;
+      width: 100%;
+      background-image: 
+        linear-gradient(45deg, #000 25%, transparent 25%), 
+        linear-gradient(-45deg, #000 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #000 75%), 
+        linear-gradient(-45deg, transparent 75%, #000 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      background-color: #fff;
+      border-top: 2px solid #555;
+      border-bottom: 2px solid #555;
+    }
+
+    /* Navigering */
+    nav {
+      background: #000;
+      padding: 1rem 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 2px solid var(--neon-blue);
+      box-shadow: 0 0 15px var(--neon-glow-blue);
+    }
+
+    nav a {
+      color: var(--cream);
+      text-decoration: none;
+      font-weight: 700;
+      margin: 0 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s, text-shadow 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--neon-red);
+      text-shadow: 0 0 8px var(--neon-glow-red);
+    }
+
+    /* Hero / Skylt */
+    header {
+      padding: 60px 20px;
+      text-align: center;
+      background: radial-gradient(circle, #242429 0%, #0d0d0f 100%);
+      border-bottom: 4px solid #333;
+    }
+
+    .neon-title {
+      font-family: 'Shrikhand', cursive;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-shadow: 
+        0 0 5px #fff, 
+        0 0 10px #fff, 
+        0 0 20px var(--neon-red), 
+        0 0 40px var(--neon-red);
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-family: 'Lobster', cursive;
+      font-size: 1.8rem;
+      color: var(--neon-blue);
+      text-shadow: 0 0 10px var(--neon-glow-blue);
+    }
+
+    /* Gemensam Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+
+    .section-title {
+      font-family: 'Shrikhand', cursive;
+      font-size: 2.3rem;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 12px var(--neon-glow-blue);
+    }
+
+    /* Om Klubben & Nostalgihuset */
+    .about-box {
+      background: #1a1a1e;
+      border: 3px solid #333;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.8);
+      position: relative;
+    }
+
+    .chrome-badge {
+      display: inline-block;
+      background: var(--chrome-gradient);
+      color: #111;
+      padding: 5px 15px;
+      font-weight: 900;
+      border-radius: 4px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5), inset 0 1px 1px #fff;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    /* Träffar / Kalender */
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .event-card {
+      background: #1a1a1e;
+      border: 2px solid #333;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      border-left: 6px solid var(--neon-red);
+    }
+
+    .event-header {
+      background: #25252b;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+    }
+
+    .event-date {
+      font-weight: 900;
+      color: var(--neon-blue);
+      font-size: 1.1rem;
+    }
+
+    .event-body {
+      padding: 20px;
+      flex-grow: 1;
+    }
+
+    .event-body h3 {
+      font-family: 'Lobster', cursive;
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .map-button {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: transparent;
+      color: var(--neon-red);
+      border: 1px solid var(--neon-red);
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      box-shadow: 0 0 5px var(--neon-glow-red);
+      transition: all 0.2s ease;
+    }
+
+    .map-button:hover {
+      background: var(--neon-red);
+      color: #fff;
+      box-shadow: 0 0 15px var(--neon-glow-red);
+    }
+
+    /* Galleri & Filter */
+    .filter-buttons {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .filter-btn {
+      background: #25252b;
+      border: 2px solid #444;
+      color: var(--cream);
+      padding: 8px 18px;
+      margin: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--neon-red);
+      border-color: var(--neon-red);
+      box-shadow: 0 0 10px var(--neon-glow-red);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery-item {
+      background: #1a1a1e;
+      border: 3px solid #2d2d35;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-caption {
+      padding: 10px;
+      font-size: 0.9rem;
+      text-align: center;
+      background: #111;
+      border-top: 1px solid #333;
+    }
+
+    footer {
+      background: #000;
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 2px solid #333;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="checker-strip"></div>
+
+  <header>
+    <h1 class="neon-title">Roadstars</h1>
+    <p class="subtitle">Anderstorp &bull; Est. Cruisin' Spirit</p>
+  </header>
+
+  <div class="checker-strip"></div>
+
+  <nav>
+    <a href="#about">Klubben</a>
+    <a href="#events">Träffar</a>
+    <a href="#gallery">Bilder</a>
+  </nav>
+
+  <section id="about" class="container">
+    <div class="about-box">
+      <span class="chrome-badge">Klubbhuset</span>
+      <h2 class="section-title" style="text-align: left; margin-bottom: 15px;">Välkommen till Nostalgihuset</h2>
+      <p style="margin-bottom: 15px;">
+        Roadstars Anderstorp är samlingspunkten för alla med bultande hjärta för gamla amerikanska bilar, V8-muller, tidlös rock'n'roll och äkta 50-talskänsla. Vårt klubbhus – <strong>Nostalgihuset</strong> – är hjärtat i vår verksamhet.
+      </p>
+      <p>
+        Här träffas vi för veckofika, garagesnack, planering inför sommarens cruisingar och ren nostalgi bland tidsenliga skyltar, jukeboxmusik och doften av bryggkaffe. Oavsett om du glider fram i en fen-kryssare eller jobbar på ett hett projekt i garaget är garagedörren alltid öppen.
+      </p>
+    </div>
+  </section>
+
+  <section id="events" class="container" style="padding-top: 0;">
+    <h2 class="section-title">Träffar & Kalender</h2>
+    
+    <div class="events-grid">
+      <div class="event-card">
+        <div class="event-header">
+          <span class="event-date">Varje Torsdag</span>
+          <span>18:00 - 21:00</span>
+        </div>
+        <div class="event-body">
+          <h3>Fikakväll i Nostalgihuset</h3>
+          <p>Kaffe, hembakat och garagesnack. Vi sparkar däck och tjötar klassiker.</p>
+          <a href="https://maps.google.com" target="_blank" class="map-button">Vägbeskrivning</a>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-header">
+          <span class="event-date">Lördag 6 Juni</span>
+          <span>Samling 16:00</span>
+        </div>
+        <div class="event-body">
+          <h3>Sommarcruising Anderstorp</h3>
+          <p>Gemensam samling och runda runt bygden. Vi rundar av med grillning vid Nostalgihuset.</p>
+          <a href="https://maps.google.com" target="_blank" class="map-button">Vägbeskrivning</a>
+        </div>
+      </div>
+
+      <div class="event-card">
+        <div class="event-header">
+          <span class="event-date">Lördag 18 Juli</span>
+          <span>10:00 - 16:00</span>
+        </div>
+        <div class="event-body">
+          <h3>Klassikerträff & Swap Meet</h3>
+          <p>Utställning av amerikanska bilar, bytesmarknad för delar och tidsenlig musik.</p>
+          <a href="https://maps.google.com" target="_blank" class="map-button">Vägbeskrivning</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="container">
+    <h2 class="section-title">Evenemangsbilder</h2>
+
+    <div class="filter-buttons">
+      <button class="filter-btn active" onclick="filterGallery('all')">Alla</button>
+      <button class="filter-btn" onclick="filterGallery('cruising')">Cruisingar</button>
+      <button class="filter-btn" onclick="filterGallery('fika')">Fikakvällar</button>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item cruising">
+        <img src="images/cruising-1.jpg" onerror="this.src='https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600'" alt="Cruising 1">
+        <div class="gallery-caption">Kvällscruising genom stan</div>
+      </div>
+
+      <div class="gallery-item fika">
+        <img src="images/fika-1.jpg" onerror="this.src='https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600'" alt="Fika i klubbhuset">
+        <div class="gallery-caption">Torsdagsfika i Nostalgihuset</div>
+      </div>
+
+      <div class="gallery-item cruising">
+        <img src="images/cruising-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600'" alt="Cruising 2">
+        <div class="gallery-caption">Uppställning inför lördagsrundan</div>
+      </div>
+
+      <div class="gallery-item fika">
+        <img src="images/fika-2.jpg" onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600'" alt="Verkstadsfika">
+        <div class="gallery-caption">Motorprat vid lyften</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="checker-strip"></div>
+
+  <footer>
+    <p>&copy; Roadstars Anderstorp &bull; Nostalgihuset &bull; Keep on Cruisin'</p>
+  </footer>
+
+  <script>
+    function filterGallery(category) {
+      const items = document.querySelectorAll('.gallery-item');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      items.forEach(item => {
+        if (category === 'all' || item.classList.contains(category)) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
